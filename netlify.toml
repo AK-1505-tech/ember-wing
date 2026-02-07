@@ -1,0 +1,30 @@
+[build]
+  # Netlify will run this command to build your React app
+  command = "npm run build"
+  # Directory to deploy
+  publish = "build"
+  # Functions directory
+  functions = "netlify/functions"
+
+[functions]
+  # Configure serverless function timeout (max 26 seconds on free tier)
+  timeout = 26
+
+# Environment variables (can also set in Netlify UI)
+# These are fallback values; override in Netlify Site Settings -> Build & deploy -> Environment
+[context.production.environment]
+  # Set this to your Ollama server URL if not running on localhost
+  # Examples:
+  # OLLAMA_URL = "http://your-server-ip:11434"
+  # OLLAMA_URL = "http://ollama.example.com"
+  OLLAMA_URL = "http://localhost:11434"
+  # Optional: set a proxy API key for security
+  # PROXY_API_KEY = "your-secret-key"
+
+[context.deploy-preview]
+  command = "npm run build"
+  environment = { OLLAMA_URL = "http://localhost:11434" }
+
+[context.branch-deploy]
+  command = "npm run build"
+  environment = { OLLAMA_URL = "http://localhost:11434" }
